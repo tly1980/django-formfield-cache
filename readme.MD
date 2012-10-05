@@ -1,4 +1,60 @@
-Django Admin Foreinkey Cache
+django-formfield-cache
 ============================
 
-A 
+Prevent unnecessary DB hit of the foreign key field of InlineAdmin (StackedAdmin/TabularAdmin).
+
+Each foreign key field of the EVERY instance of InlineAdmin (StackedAdmin/TabularAdmin), will cause one database hit.
+
+django-formfield-cache provide a simple and un-intrusive way to cache the query.
+
+Example Code:
+============
+
+models.py
+---------
+class State(models.Model):
+    state = models.CharField(max_length=128)
+
+    def __repr__(self):
+        return self.state
+
+    def __str__(self):
+        return repr(self)
+
+
+class PostCode(models.Model):
+    code = models.CharField(max_length=128)
+    town = models.CharField(max_length=128)
+
+    def __repr__(self):
+        return "%s (%s)" % (self.code, self.town)
+
+    def __str__(self):
+        return repr(self)
+
+
+class Entry(models.Model):
+    first_name = models.CharField(max_length=128)
+    last_name = models.CharField(max_length=128)
+    mobile = models.CharField(max_length=128)
+
+
+class Address(models.Model):
+    state = models.ForeignKey(State)
+    postcode = models.ForeignKey(PostCode)
+    street = models.CharField(max_length=128)
+    entry = models.ForeignKey(Entry)
+
+admin.py
+--------
+class EntryAdmin(admin.ModelAdmin):
+
+    @foreignkey_cache('state', 'postcode')
+    class AddressAdmin(admin.StackedInline):
+        model = Address
+
+    inlines = [AddressAdmin, ]
+    list_display = ('first_name', 'last_name', )
+
+admin.site.register(Entry, EntryAdmin)
+
