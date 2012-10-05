@@ -1,6 +1,6 @@
 from django.contrib import admin
 from models import Entry, State, PostCode, Address
-from decorators import fkcache
+from formfield_cache import foreignkey_cache
 
 
 class PostCodeAdmin(admin.ModelAdmin):
@@ -12,12 +12,12 @@ class StateAdmin(admin.ModelAdmin):
     list_display = ('state', )
 
 
-@fkcache('state', 'postcode')
-class AddressAdmin(admin.StackedInline):
-    model = Address
-
-
 class EntryAdmin(admin.ModelAdmin):
+
+    @foreignkey_cache('state', 'postcode')
+    class AddressAdmin(admin.StackedInline):
+        model = Address
+
     inlines = [AddressAdmin, ]
     list_display = ('first_name', 'last_name', )
 

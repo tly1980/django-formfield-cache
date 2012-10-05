@@ -1,6 +1,12 @@
 
 
-class FakeQueryset:
+class DummyQueryset:
+    """
+    Dummy Queryset
+    1. Pretend to be a queryset object, but only provide all() method.
+    2. Cache the query result at the initial stage
+    """
+
     def __init__(self, queryset):
         self.all_ret = queryset.all()
 
@@ -8,7 +14,24 @@ class FakeQueryset:
         return self.all_ret
 
 
-def fkcache(*cache_fields):
+def foreignkey_cache(*cache_fields):
+    """
+    Cache decorators for the Foreignkey.
+
+    Example Usage:
+
+    class EntryAdmin(admin.ModelAdmin):
+
+        @foreignkey_cache('state', 'postcode')
+        class AddressAdmin(admin.StackedInline):
+            model = Address
+
+        inlines = [AddressAdmin, ]
+        list_display = ('first_name', 'last_name', )
+
+    admin.site.register(Entry, EntryAdmin)
+    """
+
     def f(the_admin):
         formfield_for_foreignkey_old = the_admin.formfield_for_foreignkey
 
@@ -22,7 +45,7 @@ def fkcache(*cache_fields):
                     request.__fkcache = {}
 
                 if db_field.name not in request.__fkcache:
-                    request.__fkcache[db_field.name] = FakeQueryset(db_field.formfield(**kwargs).queryset)
+                    request.__fkcache[db_field.name] = DummyQueryset(db_field.formfield(**kwargs).queryset)
 
                 kwargs['queryset'] = request.__fkcache[db_field.name]
 
