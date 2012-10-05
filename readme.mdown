@@ -10,10 +10,13 @@ django-formfield-cache provide a simple and un-intrusive way to cache the query.
 Put the fields as arguments 
 Example: 
 --------
-    @foreignkey_cache('state', 'postcode')
-    class AddressAdmin(admin.StackedInline):
-        model = Address
-
+```python
+@foreignkey_cache('state', 'postcode')
+class AddressAdmin(admin.StackedInline):
+    model = Address
+    ...
+    ...
+```
 
 
 Full Example Code:
