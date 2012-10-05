@@ -1,0 +1,86 @@
+[
+    {
+        "pk": 1, 
+        "model": "contacts.state", 
+        "fields": {
+            "state": "NSW"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "contacts.state", 
+        "fields": {
+            "state": "ACT"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "contacts.state", 
+        "fields": {
+            "state": "VIC"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "contacts.postcode", 
+        "fields": {
+            "town": "Sydney", 
+            "code": "2000"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "contacts.postcode", 
+        "fields": {
+            "town": "Canberra", 
+            "code": "2600"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "contacts.postcode", 
+        "fields": {
+            "town": "Melbourne", 
+            "code": "3000"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "contacts.entry", 
+        "fields": {
+            "mobile": "123123", 
+            "first_name": "Tom", 
+            "last_name": "Tang"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "contacts.address", 
+        "fields": {
+            "entry": 1, 
+            "state": 1, 
+            "street": "abc st", 
+            "postcode": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "contacts.address", 
+        "fields": {
+            "entry": 1, 
+            "state": 2, 
+            "street": "abc st", 
+            "postcode": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "contacts.address", 
+        "fields": {
+            "entry": 1, 
+            "state": 3, 
+            "street": "abc st", 
+            "postcode": 3
+        }
+    }
+]
