@@ -18,9 +18,19 @@ class AddressAdmin(admin.StackedInline):
     ...
 ```
 
+Before and after applying the cache
+================================
+Entry Admin has a AddressAdmin (extended from StackedInlineAdmin), and in this particular instance of entry, 
+it has 6 instances of AddressAdmin
+![Before applying the cache - Query Count ] (https://raw.github.com/tly1980/django-formfield-cache/release/0.3/screenshots/qry_count.png)
+
+
 
 Full Example Code:
 ==================
+
+The source code can be found in test_app
+
 
 models.py
 ---------
