@@ -1,17 +1,24 @@
+---
+Author: Tom Tang
+---
+
 django-formfield-cache
 ============================
 
-Prevent unnecessary DB hit of the foreign key field of InlineAdmin (StackedAdmin/TabularAdmin).
+Prevent unnecessary DB hit of the foreign key field of InlineAdmin subclass (StackedAdmin/TabularAdmin).
+Each foreign key field of the EVERY instance of InlineAdmin subclass (StackedAdmin/TabularAdmin), will cause one database hit.
 
-Each foreign key field of the EVERY instance of InlineAdmin (StackedAdmin/TabularAdmin), will cause one database hit.
+django-formfield-cache provide a **simple** and **non-intrusive** way (using decorators) to cache the queries from foreign key fields of any inlineAdmin subclasses.
 
-django-formfield-cache provide a simple and un-intrusive way to cache the query.
 
-Put the fields as arguments 
 Example: 
 --------
+
 ```python
-@foreignkey_cache('state', 'postcode')
+# state, postcode is a foreignkey field of Address model.
+# without @foreignkey_cache, unnessary DB query will be generated 
+# against EVERY foreignkey filed of EVERY instance of inlineadmin
+@foreignkey_cache('state', 'postcode') 
 class AddressAdmin(admin.StackedInline):
     model = Address
     ...
