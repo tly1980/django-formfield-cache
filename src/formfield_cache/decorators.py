@@ -1,3 +1,10 @@
+from django.conf import settings
+
+foreignkey_cache_enabled = False
+try:
+    foreignkey_cache_enabled = settings.FORMFIELD_CACHE_ENABLED
+except:
+    pass
 
 
 class DummyQueryset:
@@ -40,7 +47,7 @@ def foreignkey_cache(*cache_fields):
             Get a form Field for a database Field that has declared choices.
             """
             # If the field is named as a radio_field, use a RadioSelect
-            if db_field.name in cache_fields and request and request.method == 'GET':
+            if foreignkey_cache_enabled and db_field.name in cache_fields and request and request.method == 'GET':
                 if '__fkcache' not in request:
                     request.__fkcache = {}
 

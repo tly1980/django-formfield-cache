@@ -16,6 +16,7 @@ class EntryAdmin(admin.ModelAdmin):
 
     @foreignkey_cache('state', 'postcode')
     class AddressAdmin(admin.StackedInline):
+        extra = 1
         model = Address
 
     inlines = [AddressAdmin, ]
