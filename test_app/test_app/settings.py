@@ -160,3 +160,12 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 FORMFIELD_CACHE_ENABLED = True
+
+import sys
+if 'test' in sys.argv:
+    MIDDLEWARE_CLASSES = filter(lambda m: m != 'debug_toolbar.middleware.DebugToolbarMiddleware',
+        MIDDLEWARE_CLASSES)
+    INSTALLED_APPS = filter(lambda a: a != 'debug_toolbar', INSTALLED_APPS)
+
+    MIDDLEWARE_CLASSES = tuple(MIDDLEWARE_CLASSES)
+    INSTALLED_APPS = tuple(INSTALLED_APPS)
