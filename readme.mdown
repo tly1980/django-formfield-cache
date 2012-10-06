@@ -18,18 +18,33 @@ class AddressAdmin(admin.StackedInline):
     ...
 ```
 
+***
+
 Before and after applying the cache
 ================================
-Entry Admin has a AddressAdmin (extended from StackedInlineAdmin), and in this particular instance of entry, 
-it has 6 instances of AddressAdmin
-![Before applying the cache - Query Count ] (https://raw.github.com/tly1980/django-formfield-cache/release/0.3/screenshots/qry_count.png)
+
+Entry Admin has a AddressAdmin (extended from StackedInlineAdmin).
+In this particular instance of entry, it has 6 instances of AddressAdmin
+
+***Before, it cost 18 queries.***
+
+![Query Count](https://raw.github.com/tly1980/django-formfield-cache/release/0.3/screenshots/qry_count.png)
+
+![Query Generated](https://raw.github.com/tly1980/django-formfield-cache/release/0.3/screenshots/qry_actual.png)
 
 
+***After, it cost only 6 queries.***
 
-Full Example Code:
-==================
+![Query Count](https://raw.github.com/tly1980/django-formfield-cache/release/0.3/screenshots/qry_count_after.png)
 
-The source code can be found in test_app
+![Query Generated](https://raw.github.com/tly1980/django-formfield-cache/release/0.3/screenshots/qry_actual_after.png)
+
+***
+
+Full Example Code 
+=================
+
+The complete source code can be found in test_app
 
 
 models.py
